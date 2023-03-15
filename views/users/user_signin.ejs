@@ -1,0 +1,95 @@
+<%- include ('../layouts/user/header.ejs') %>
+  <header>
+    <style>
+      body {
+        overflow: hidden;
+      }
+    </style>
+  </header>
+
+  <h1 class="row d-flex align-items-center justify-content-center h-100 mt-5 ">
+    Login User
+  </h1>
+
+
+
+  <section style="width: 100%;">
+    <div class="container-fluid mt-5">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <form action="/user_signin" method="post" onsubmit="return allChecking()">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control form-control-lg"
+                onchange="emailValidate()" />
+              <span id="Email"></span>
+            </div>
+
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="password">Password</label>
+              <input type="password" id="password" class="form-control form-control-lg" name="password"
+                onchange="passwordValidate()" />
+              <span id="Password"></span>
+            </div>
+
+            <div class="d-flex justify-content-around align-items-center mb-4"></div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-lg btn-block align-items-center" value="Login"
+              onclick="emailValidate(),passwordValidate()">
+              Login
+            </button>
+            <div><a href="/register">New Register</a>
+              <a href="/loadForgotNumber" id="forgotId">Forgot Password</a>
+            </div>
+
+
+            <div class="divider d-flex align-items-center my-4">
+              <% if(typeof message !=='undefined' ){ %>
+                <span>
+                  <%= message %>
+                </span>
+                <% } %>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    // let emailId=document.getElementById("Email")
+    function emailValidate() {
+      let emailId = document.getElementById("email").value;
+      if (/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(emailId) == false) {
+        document.getElementById("Email").innerHTML = "Please enter valid email ";
+        return false;
+      } else {
+        document.getElementById("Email").innerHTML = "";
+        return true;
+      }
+    }
+    function passwordValidate() {
+      let password = document.getElementById("password").value;
+      if (password.length < 8) {
+        document.getElementById("Password").innerHTML = "please enter valied password";
+        return false
+
+      } else {
+        document.getElementById("Password").innerHTML = "";
+        return true;
+      }
+    }
+    function allChecking() {
+      if (emailValidate() && passwordValidate()) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+  </script>
+  <!-- </body>
+</html> -->

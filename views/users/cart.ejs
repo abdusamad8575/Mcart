@@ -1,0 +1,208 @@
+<%- include ('../layouts/user/header.ejs') %>
+	<%- include ('../layouts/user/nav.ejs') %>
+
+
+		<!-- breadcrumb -->
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+				<a href="home" class="stext-109 cl8 hov-cl1 trans-04">
+					Home
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
+
+				<span class="stext-109 cl4">
+					Shoping Cart
+				</span>
+			</div>
+		</div>
+
+
+		<!-- Shoping Cart -->
+
+		<div class="container">
+			<form class="bg0 p-t-75 p-b-85">
+
+				<div class="row">
+
+
+
+					<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+						<div class="m-l-25 m-r--54 m-lr-0-xl">
+							<div class="wrap-table-shopping-cart">
+								<table class="table-shopping-cart">
+									<tr class="table_head">
+										<th class="column-1">Product</th>
+										<th class="column-2"></th>
+										<th class="column-3">Price</th>
+										<th class="column-4">Quantity</th>
+										<th class="column-5">Total</th>
+
+									</tr>
+									<% if(cartProducts.item.length>0){ %>
+										<% for(let key of cartProducts.item) {%>
+											<tr class="table_row product-cart">
+
+												<td class="column-1">
+													<a href="/removeItem?id=<%= key.productId._id %>">
+														<div class="how-itemcart1">
+
+															<img src="/admin/multer/img/<%= key.productId.image[0] %>"
+																alt="IMG">
+
+														</div>
+													</a>
+												</td>
+												<td class="column-2">
+													<%= key.productId.name %>
+												</td>
+												<td class="column-3">₹ <%= key.productId.price %>
+												</td>
+
+												<td class="column-4">
+
+													<div>
+														<div class="wrap-num-product flex-w m-l-auto m-r-0">
+															<button
+																class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m minasCart decrement-btn"
+																data-product-id="<%= key.productId._id %>"
+																price="<%= key.productId.price %>" type="button">
+																<i class="fs-16 zmdi zmdi-minus"></i>
+															</button>
+
+															<input class="mtext-104 cl3 txt-center num-product input-number"
+																id="qty-<%= key.productId._id %>" type="number"
+																name="qty" value="<%= key.qty %>"
+																max="<%= key.productId.quantity %>"
+																data-product-id="<%= key.productId._id %>" disabled>
+
+															<button
+																class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m increment-btn"
+																dta-product-id="<%= key.productId._id %>"
+																price="<%= key.productId.price %>" type="button">
+																<i class="fs-16 zmdi zmdi-plus"></i>
+															</button>
+														</div>
+													</div>
+
+												</td>
+
+
+												<td>
+													<div style="text-align: end;">
+													<span class="mtext-110 cl2">₹</span> 
+													<span class="mtext-110 cl2 column-5 price-total" id="price-<%= key.productId._id %>"><%= key.qty*key.productId.price %></span>
+												</div> 
+												</td>
+
+											</tr>
+											<%}} else {%>
+												<tr>
+													<td>No Product</td>
+												</tr>
+												<%}%>
+
+
+								</table>
+							</div>
+
+							<!-- <form action="/add-coupon" method="post" class="nk-form"> -->
+
+							<div class="nk-gap-1"></div>
+
+
+							<!-- </form> -->
+						</div>
+					</div>
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Cart Totals
+							</h4>
+
+							<div class="flex-w flex-t bor12 p-b-13">
+		
+							</div>
+
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+										Total:
+									</span>
+								</div>
+
+								<div class="size-209 p-t-1">
+									<span class="mtext-110 cl2">₹</span>
+									<span class="mtext-110 cl2 totalCart" id="totalId">
+										<%= cartProducts.totalPrice %>
+									</span>
+								</div>
+							</div>
+							<a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								href="getCheckout">Proceed to Checkout</a>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<!-- </form> -->
+		
+		<script>
+			$(document).ready(function () {
+
+				$('.increment-btn').click(function (e) {
+					e.preventDefault();
+					var inputEl = $(this).closest('.product-cart').find('input.input-number');
+					var productId = inputEl.data('product-id');
+					var qty = parseInt(inputEl.val());
+					var maxQty = inputEl.attr('max');
+					if (qty < maxQty) {
+						qty++;
+						inputEl.val(qty);
+						updateCartItem(productId, qty, inputEl);
+					}
+				});
+
+				// decrement button
+				$('.decrement-btn').click(function (e) {
+					e.preventDefault();
+					var inputEl = $(this).closest('.product-cart').find('input.input-number');
+					var productId = inputEl.data('product-id');
+					var qty = parseInt(inputEl.val());
+					if (qty > 1) {
+						qty--;
+						inputEl.val(qty);
+						updateCartItem(productId, qty, inputEl);
+					}
+				});
+
+			});
+			function updateCartItem(productId, qty, inputEl) {
+				$.ajax({
+					url: '/editCart',
+					type: 'POST',
+					data: { productId: productId, qty: qty },
+					success: function (data) {
+						console.log("data="+data);
+						// update subtotal and grand total
+						const productPrice = data.productPrice;
+						const newPrice = productPrice * qty;
+						inputEl.closest('.product-cart').find('.price-total').text(` ${newPrice}`);
+						// $('#subtotal').text(` ${data.subtotal}`);
+						$('#totalId').text(`${data.grandTotal}`);
+
+						// update remaining stock for this item
+						const remainingStock = data.remainingStock[productId];
+						// inputEl.closest('.product-cart').find('.remaining-stock').text(`${remainingStock} Items left`);
+					},
+
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown);
+					}
+				});
+			}
+
+		</script>
+
+
+		<%- include ('../layouts/user/footer.ejs') %>

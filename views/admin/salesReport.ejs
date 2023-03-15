@@ -1,0 +1,166 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+  <%- include ('../layouts/admin/adminSidebar.ejs') %>
+    <%- include ('../layouts/admin/adminNav.ejs') %>
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container mt-3" style="padding-top: 0vh; z-index: 3  ;">
+          <h3 style="margin-left: 40%;padding-bottom: 10px; ">SALES REPORT </h3>
+
+          <a href="/admin/dashboard" class="pb-1 btn btn-primary" type="">Go Back</a>
+
+          <form action="/admin/datewiseReport" method="post">
+            <div class="row" style="padding-bottom: 40px; padding-top: 40px;" id="sales-div">
+
+              <div class="col-md-3">
+                <input type="date" class="form-control" value="" name="Startingdate"">
+                <span class="text-primary">Enter the Starting date</span>
+              </div>
+              <div class="col-md-3">
+                <input type="date" class="form-control" value="" name="Endingdate"">
+                <span class="text-primary">Enter the Ending date</span>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" id="date-donfirm" class=" btn btn-success ">
+                  <span>Confirm Date</span>
+                  </a>
+              </div>
+              <div class="col-md-3">
+                <a href="" class="pb-2 btn btn-primary" id="downloadExcelBtn">Download Xl</a>
+                <a href="" class="pb-2 btn btn-primary" id="downloadPdfBtn">PDF</a>
+              </div>
+            </div>
+          </form>
+
+
+
+          <br>
+          <table id="myTab" class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Quantity Sold</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i=1;i<=product.length;i++){ %>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+
+                      <img src="/admin/multer/img/<%=product[i-1].image[0]  %>" alt="" style="width: 45px; height: 45px"
+                        class="rounded-circle" />
+
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1 ml-3"><%=product[i-1].name %></p>
+                        <p class="text-muted mb-0 ml-3">Price: ₹<%=product[i-1].price %></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="fw-normal mb-1"><%=product[i-1].category %></p>
+                    <p class="text-muted mb-0">Quantity:<%=product[i-1].quantity %></p>
+                  </td>
+                  <td>
+                    <div>
+                      <p class="text-muted mb-0 ml-3"><%=product[i-1].sales %></p>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-muted mb-0 ml-3">₹<%=product[i-1].price*product[i-1].sales %></p>
+                  </td>
+
+                </tr>
+
+                <% } %>
+            </tbody>
+            <footer>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </footer>
+          </table>
+        </div>
+        <!-- <script>
+      $(document).ready(function() {
+      $('#myTab').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
+      } );
+  } )
+      </script> -->
+      </div>
+      <script>
+        $(document).ready(function () {
+          // Attach click event handler to update button
+          $('#date-donfirm').click(function () {
+            // Make AJAX request to server
+            $.ajax({
+              url: '/update-content', // URL of server-side route to handle the request
+              method: 'POST', // HTTP method to use (e.g. GET, POST)
+              data: { /* Optional data to send with the request */ },
+              success: function (response) {
+                // Update content of div with response from server
+                $('#sales-div').html(response);
+              },
+              error: function () {
+                alert('Error occurred while updating content');
+              }
+            });
+          });
+        });
+
+
+      </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+
+
+<!-- SheetJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // Download as PDF
+  // console.log(jsPDF);
+document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+  // Get the table element
+
+
+  var doc = new jsPDF()
+    doc.autoTable({ html: '#myTab' })
+    doc.save('sales.pdf')
+});
+
+// Download as Excel
+document.getElementById('downloadExcelBtn').addEventListener('click', function() {
+  // Get the table element
+  var table = document.getElementById('myTab');
+
+  // Convert the table data to a worksheet object
+  var worksheet = XLSX.utils.table_to_sheet(table);
+
+  // Create a new workbook and add the worksheet
+  var workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sales');
+
+  // Save the Excel file
+  XLSX.writeFile(workbook, 'sales.xlsx');
+});
+
+</script>
+
+      <%- include ('../layouts/admin/adminFooter.ejs') %>

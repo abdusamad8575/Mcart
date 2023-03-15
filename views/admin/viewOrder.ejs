@@ -1,0 +1,255 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+    <%- include ('../layouts/admin/adminSidebar.ejs')%>
+        <%- include ('../layouts/admin/adminNav.ejs') %>
+            <!-- 
+        <section class="h-80 gradient-custom">
+            <div class="container py-5 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                  <div class="card" style="border-radius: 10px;">
+                    <div class="card-body p-4">
+                     
+                      <% for(let i = 0;i< order.products.item.length;i++){ %>
+                      <div class="card shadow-0 border mb-4">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <img src="/admin/multer/img/<%= order.products.item[i].productId.image[0] %>"
+                                class="img-fluid" alt="lol">
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0"><%= order.products.item[i].productId.name %></p>
+                            </div>
+                            
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small"><%= order.products.item[i].productId.category %></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small">Qty:<%= order.products.item[i].qty %></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0 small">₹.<%= order.products.item[i].productId.price %></p>
+                            </div>
+                            <% if(order.status == 'Delivered'){ %>
+                              <% if(order.productReturned[i] == 0){ %>
+                            <div class="text-center d-flex" style="margin-left: 35vw;">
+                              <a href="/return-product?id=<%= order.products.item[i].productId._id%>" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Return Product</a>
+                            </div>
+                            <% }else{%>
+                              <p class="text-muted mb-0" style="margin-left: 37vw;">Product Returned</p>
+                          <%  }} %>
+                          </div>
+                          
+                        </div>
+                      </div>
+                        <% } %>
+        
+        
+                      <div class="d-flex justify-content-between pt-2">
+                        <div class="mb-0">
+                          <p class="text-muted mb-0">Track Order</p>
+                        </div>
+                        <div class="mb-0">
+                          <div class="d-flex justify-content-around mb-1">
+                            <p class="text-muted mt-1 mb-0 ms-xl-5"><%= order.status %></p>
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class="d-flex justify-content-between pt-2">
+                        <p class="bold mb-0">Order Details</p>
+                        <p class="text-center mb-0"><span class="bold me-4">Total</span> ₹.<%=order.products.totalprice %></p>
+                      </div>
+          
+                      <div class="d-flex justify-content-between pt-2">
+                        <p class="text-muted mb-0">Invoice Number : <%= order._id %></p>
+                        <p class="text-muted mb-0"><span class="bold me-4">Discount</span> ₹.0</p>
+                      </div>
+          
+                      <div class="d-flex justify-content-between">
+                        <p class="text-muted mb-0">Invoice Date : <%= order.createdAt.toDateString() %></p>
+                        
+                      </div>
+          
+                      <div class="d-flex justify-content-between mb-5">
+                        <p class="text-muted mb-0">Recepit Coupon : <%= order.offer %></p>
+                        <p class="text-muted mb-0"><span class="bold me-4">Delivery Charges</span> Free</p>
+                      </div>
+                    </div>
+                    <div class="card-footer border-0 px-4 py-5"
+                      style="background-color: #336af7; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                      <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
+                        paid: <span class="h2 mb-0 ms-2">₹.<%=order.products.totalprice %></span></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section> -->
+
+            <!--================ confirmation part start =================-->
+
+            <section class="h-80 gradient-custom">
+                <div class="container py-5 h-100">
+                    <!-- <div class="row d-flex justify-content-center align-items-center h-100"> -->
+                    <div class="col-lg-10 col-xl-10">
+
+                        <div class="card">
+                            <div class="container py-5 h-100">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="order_details_iner">
+                                        <h3>Order Details</h3>
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" colspan="2">Product</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for(let key of order.products.item){%>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <span>
+                                                                <%= key.productName%>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-2">
+                                                                <img src="/admin/multer/img/<%= key.productId.image[0] %>"
+                                                                    class="img-fluid" alt="lol">
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <%= key.qty%>
+                                                        </td>
+                                                        <td> <span>₹<%= key.price%></span></td>
+                                                    </tr>
+                                                    <%}%>
+                                                        <tr>
+
+                                                        <tr>
+                                                            <th colspan="4">Subtotal</th>
+                                                            <th> <span>₹<%= order.products.totalprice%></span></th>
+                                                        </tr>
+
+                                                        <!-- <tr>
+                      <th colspan="3">shipping</th>
+                      <th><span>flat rate: $50.00</span></th>
+                    </tr> --
+                                            </tbody>
+                                            <hr>
+                                            <tfoot>
+                                                <tr>
+                                                    <th scope="col" colspan="3">Quantity</th> -->
+                                                        <th colspan="2"><div>Total:<%= order.products.totalprice%></div>
+                                                        </th>
+                                                        </tr>
+                                                        </tfoot>
+                                        </table>
+<hr>
+                                    </div>
+                                </div>
+                          
+                      
+                        <div class="container py-5 h-50">
+                            <div class="row">
+                                <div class="col-lg-12 col-lx-4 ">
+                                    <div class="single_confirmation_details">
+                                        <h4>order info</h4>
+                                        <ul>
+                                            <li>
+                                                <p>order Id: <%= order._id%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>data: <%= order.createdAt.toDateString()%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>total: USD <%= order.products.totalprice%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>mayment methord: <%= order.payment%>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <hr>
+                                    </div>
+                                </div>
+                               
+                                <div class="container py-5 h-100">
+                                <div class="col-lg-12 col-lx-4 m-b-50">
+                                    <div class="single_confirmation_details">
+                                        <h4>Billing Address</h4>
+                                        <ul>
+                                            <li>
+                                                <p>Name: <%= order.firstname%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>Address: <%= order.address%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>phone: <%= order.phone%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>city: <%= order.city%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>State: <%= order.state%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>country:<%= order.country%>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>postcode: <%= order.zip%>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-6 col-lx-4 m-b-22">
+                            <div class="single_confirmation_details">
+                                <h4>shipping Address</h4>
+                                <ul>
+                                    <li>
+                                        <p>Address</p><span>: </span>
+                                    </li>
+                                    <li>
+                                        <p>city</p><span>: </span>
+                                    </li>
+                                    <li>
+                                        <p>country</p><span>: </span>
+                                    </li>
+                                    <li>
+                                        <p>postcode</p><span>:</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </section>
+
+
+
+
+            <%- include ('../layouts/admin/adminFooter.ejs') %>

@@ -1,0 +1,125 @@
+<%- include ('../layouts/user/header.ejs') %>
+  <%- include ('../layouts/user/nav.ejs') %>
+
+    <head>
+      <!-- Required meta tags -->
+      <link rel="icon" href="img/favicon.png">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- animate CSS -->
+      <link rel="stylesheet" href="css/animate.css">
+      <!-- owl carousel CSS -->
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/lightslider.min.css">
+      <!-- font awesome CSS -->
+      <link rel="stylesheet" href="css/all.css">
+      <!-- flaticon CSS -->
+      <link rel="stylesheet" href="css/flaticon.css">
+      <link rel="stylesheet" href="css/themify-icons.css">
+      <!-- font awesome CSS -->
+      <link rel="stylesheet" href="css/magnific-popup.css">
+      <!-- style CSS -->
+      <link rel="stylesheet" href="css/style.css">
+    </head>
+    <!--================Single Product Area =================-->
+    <div class="product_image_area section_padding">
+      <div class="container">
+        <div class="row s_product_inner justify-content-between">
+          <div class="col-lg-7 col-xl-7">
+            <div class="product_slider_img">
+              <div id="vertical">
+                <% for(let i=0;i< 3;i++){ %>
+                  <div data-thumb="/admin/multer/img/<%= product.image[i] %>">
+                    <a href="/admin/multer/img/<%= product.image[i] %> " class="MagicZoom">
+                      <img src="/admin/multer/img/<%= product.image[i] %> " style="height: 400px"></a>
+                  </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-xl-4">
+            <div class="s_product_text">
+              <h5>previous <span>|</span> next</h5>
+              <h3>
+                <%= product.name %>
+              </h3>
+              <h2>
+                <%= product.price %>
+              </h2>
+              <ul class="list">
+                <li>
+                  <a class="active" href="#">
+                    <span>Category</span> : <%= product.category %></a>
+                </li>
+                <li>
+                  <a href="#"> <span>Availibility</span> : In Stock</a>
+                </li>
+              </ul>
+              <p>
+                <%= product.description %>
+              </p>
+              <div class="card_area d-flex justify-content-between align-items-center">
+                <!-- <div class="product_count">
+                  <span class="inumber-decrement"> <i class="ti-minus"></i></span>
+                  <input class="input-number" type="text" value="1" min="0" max="10">
+                  <span class="number-increment"> <i class="ti-plus"></i></span>
+                </div> -->
+                <a href="addToCart?id=<%= product._id %>" class="btn_3">add to cart</a>
+                <!-- <button class="btn_3" onclick="addToCArt('<%=product._id %>')">Add to cart</button> -->
+                <a href="/addtowishlist?id=<%=product._id %>" class="like_us"> <i class="ti-heart"></i> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!--================End Single Product Area =================-->
+<!-- <script>
+  function addToCArt(proId){
+
+    // console.log("id="+proId);
+    $.ajax({
+      url:"/addToCart/"+proId,
+      method:'get',
+
+    })
+
+  }
+</script> -->
+
+
+
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="js/lightslider.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- slick js -->
+    <script src="js/slick.min.js"></script>
+    <script src="js/swiper.jquery.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <script src="js/stellar.js"></script>
+    <!-- custom js -->
+    <script src="js/theme.js"></script>
+    <script src="js/custom.js"></script>
+
+    <%- include ('../layouts/user/footer.ejs') %>

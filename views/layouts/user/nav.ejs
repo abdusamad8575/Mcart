@@ -1,0 +1,215 @@
+<header>
+       <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+      <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->	
+      <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="css/util.css">
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+  
+    <link rel="icon" href="img/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="css/slick.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="css/style.css">
+  
+</header>
+<!--::header part start::-->
+<header class="main_menu home_menu">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="home"> <img src="images/Screenshot 2023-01-23 050427.jpg" alt="logo"> </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="home">Home</a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="products">products</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Pages</a>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Shop
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    <a class="dropdown-item" href="category.html"> shop category</a>
+                                    <a class="dropdown-item" href="single-product.html">product details</a>
+                                    
+                                </div>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    pages
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <a class="dropdown-item" href="login.html"> login</a>
+                                    <a class="dropdown-item" href="tracking.html">tracking</a>
+                                    <a class="dropdown-item" href="checkout.html">product checkout</a>
+                                    <a class="dropdown-item" href="cart.html">shopping cart</a>
+                                    <a class="dropdown-item" href="confirmation.html">confirmation</a>
+                                    <a class="dropdown-item" href="elements.html">elements</a>
+                                </div>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    blog
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <a class="dropdown-item" href="blog.html"> blog</a>
+                                    <a class="dropdown-item" href="single-blog.html">Single blog</a>
+                                </div>
+                            </li> -->
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Profile
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    
+                                    
+                                    <% if(!user){ %>
+                                        <a class="dropdown-item" href="user_signin"> User</a>
+                                        <a class="dropdown-item" href="user_signin">Log In</a>
+                                    <% } else { %>
+                                        <a class="dropdown-item" href="userProfile"> <%= user.name %></a>
+                                        <a class="dropdown-item" href="logout">Log out</a>
+                                    <% } %>
+                                </div>
+                            </li>
+                            
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="hearer_icon d-flex">
+                        <!-- <a id="search_1" href=""><i class="ti-search"></i></a> -->
+                        <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                        <a href="/loadWishlist"><i class="ti-heart"></i></a>
+                        <a href="loadCart"><i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="search_input" id="search_input_box">
+        <div class="container ">
+            <form class="d-flex justify-content-between search-inner" id="search-form">
+                <input type="text" class="form-control" id="search_input" name="search" placeholder="Search Here">
+                <button type="submit" class="btn"></button>
+                <span class="ti-close" id="close_search" title="Close Search"></span>
+            </form>
+        </div>
+    </div>
+</header>
+<br><br><br><br>
+<script>
+    //surch
+    $('#search-form').keyup(function () {
+                var search = $('#search-form input[name="search"]').val();
+                console.log("search=" + search);
+
+
+                $.post('/products/search', { search: search }, function (data) {
+                    // Update the products container with the filtered results
+                    var productsHtml = '';
+                    if (data.length > 0) {
+                        console.log(data);
+                        productsHtml = data.map(product => `
+       
+                        <div  class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women ">
+                           <div class="block2">
+                                    <div class="block2-pic hov-img0">
+                                            <img src="/admin/multer/img/${product.image[0]}" height="250">
+                                           
+                                                <a href="productDetails?id=${product._id}"
+                                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                                    Quick View
+                                                </a>
+                                    </div>
+
+                                    <div class="block2-txt flex-w flex-t p-t-14">
+                                        <div class="block2-txt-child1 flex-col-l ">
+                                            <a href="productDetails?id=${product._id}"
+                                                class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                ${product.name}
+                                            </a>
+
+                                            <span class="stext-105 cl3">
+                                                $ ${product.price}
+                                            </span>
+                                        </div>
+
+                                        <div class="block2-txt-child2 flex-r p-t-3">
+                                            <a href="/addtowishlist?id=${product._id}"
+                                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                <img class="icon-heart1 dis-block trans-04"
+                                                    src="images/icons/icon-heart-01.png" alt="ICON">
+                                                <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                    src="images/icons/icon-heart-02.png" alt="ICON">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+        `).join('');
+                    } else {
+                        productsHtml = '<p>No items found </p>';
+                    }
+
+                    $('#products-container').html(productsHtml);
+                });
+            });
+</script>

@@ -1,0 +1,249 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+    <%- include ('../layouts/admin/adminSidebar.ejs')%>
+        <%- include ('../layouts/admin/adminNav.ejs') %>
+
+            <style>
+                .img-wrap {
+                    position: relative;
+
+                }
+
+                .img-wrap .close {
+                    position: absolute;
+                    top: 2px;
+                    right: 2px;
+                    z-index: 100;
+
+                }
+            </style>
+
+
+            <form action="/admin/storeEditProduct" method="post" class="my-auto" style="height: 90vh;"
+                enctype="multipart/form-data">
+                <div class="container h-100 ">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-lg-12 col-xl-11">
+                            <div class="card bg-transparent" style="border-radius: 25px;">
+                                <div class="card-body p-md-2">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-2 col-lg-6 col-xl-5 order-2 order-lg-1 width-50">
+                                            <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Edit<span
+                                                    class="text-main-1">Product</span></p>
+
+                                            <form class="mx-1 mx-md-2">
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example1c">Name</label>
+                                                        <input type="text" id="form3Example1c" class="form-control"
+                                                            name="sName" value="<%= product.name %>" required />
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label  select-label"
+                                                            for="form3Example1c">Category</label>
+
+                                                        <select name="sCategory" class="form-control">
+                                                            <option value="<%= product.category %>">
+                                                                <%= product.category %>
+                                                            </option>
+                                                            <% if(category) { %>
+                                                                <% for(let i=0;i < category.length;i++) { %>
+                                                                    <option value="<%= category[i].name %>">
+                                                                        <%= category[i].name %>
+                                                                    </option>
+                                                                    <% }} else { %>
+                                                                        <h1>No Categories to add</h1>
+                                                                        <% } %>
+
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example1c">Price</label>
+                                                        <input type="number" id="form3Example1c" class="form-control"
+                                                            name="sPrice" value="<%= product.price %>" required />
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example4c">RAM</label>
+                                                        <input type="text" id="form3Example4c" class="form-control"
+                                                            name="sRam" value="<%= product.ram %>" required />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example4c">storage</label>
+                                                        <input type="text" id="form3Example4c" class="form-control"
+                                                            name="sStorage" value="<%= product.storage %>" required />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example4c">color</label>
+                                                        <input type="text" id="form3Example4c" class="form-control"
+                                                            name="sColor" value="<%= product.color %>" required />
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example4c">Quantity</label>
+                                                        <input type="text" id="form3Example4c" class="form-control"
+                                                            name="sQuantity" value="<%= product.quantity %>" required />
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label"
+                                                            for="form3Example4c">Description</label>
+                                                        <input type="text" id="form3Example4c" class="form-control"
+                                                            name="sDescription" value="<%= product.description %>"
+                                                            required />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-row align-items-center mb-2">
+
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example1c">Rating</label>
+                                                        <input type="number" id="form3Example1c" class="form-control"
+                                                            name="sRating" max="5" value="<%= product.rating %>"
+                                                            required />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-row align-items-center mb-4">
+                                                    <div class="form-outline flex-fill mb-0">
+                                                        <label class="form-label" for="form3Example4c">Image</label>
+                                                        <div style="display:flex">
+                                                            <!-- <%for(let i=0;i< product.image.length;i++){%>
+                                                                <div class="img-wrap">
+                                                                    <button class="close delete-btn"
+                                                                        data-img="<%=product.image[i] %>"
+                                                                        data-id="<%=product._id%>">
+                                                                        &times;
+                                                                    </button>
+
+                                                                    <img src="/admin/multer/img/<%= product.image[i]%>"
+                                                                        width="100" class="img-thumbnail">
+                                                                </div>
+
+                                                                <%}%> -->
+                                                            <input type="hidden" id="pId" value="<%=product._id %>">
+                                                            <% for(let key of product.image){ %>
+                                                                <div id='<%=key %>' style="padding-right: 4px;">
+                                                                    <div class="d-flex align-items-center justify-content-center position-relative "
+                                                                       >
+                                                                        
+
+                                                                        <img src="/admin/multer/img/<%=key %>"
+                                                                            class="img-thumbnail rounded" width="100"
+                                                                         style="border: 4px;"
+                                                                            alt="error">
+                                                                            <button type="button" onclick="cut('<%=key %>')"
+                                                                                class="close position-absolute z-3 top-0 end-0 bg-transparent shadow-none"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                    </div>
+                                                                </div>
+                                                                <%}%>
+                                                        </div>
+
+                                                        <input type="hidden" name="oldImage"
+                                                            value="<%=product.image.join(',') %>" />
+                                                        <input type="file" id="form3Example4c" class="form-control"
+                                                            name="sImage" accept="image/*" multiple />
+                                                    </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                            <input type="hidden" name="id" value="<%= product._id %>">
+                                            <button type="submit" value="Register" class="btn btn-primary btn-lg">Save
+                                                Product</button>
+                                            <a href="/admin/prodectLoding" class="btn btn-primary ml-2 btn-lg">Go
+                                                Back</a>
+                                        </div>
+
+                                        <% if(typeof message !=='undefined' ){%>
+                                            <p style="color:green">
+                                                <%= message %>
+                                            </p>
+                                            <% } %>
+            </form>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </form>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script>
+                // $(document).on('click', '.delete-btn', function () {
+                //     const itemId = $(this).data('id');
+                //     const imageName = $(this).data('img');
+                //     console.log(imageName);
+
+                //     $.ajax({
+                //         url: `/admin/deleteSingleImage/${itemId}/${imageName}`,
+                //         type: 'DELETE',
+                //         success: function (response) {
+                //             if (response.success) {
+                //                 location.reload();
+                //             }
+                //         }
+                //     });
+                // });
+
+
+                function cut(id) {
+                    const pId = document.getElementById("pId").value;
+                    document.getElementById(id).innerHTML = ''
+                    $.ajax({
+                        url: '/admin/deleteSingleImage',
+                        type: 'POST',
+                        data: { img: id, pId: pId },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    })
+                }
+
+            </script>
+            <%- include ('../layouts/admin/adminFooter.ejs') %>

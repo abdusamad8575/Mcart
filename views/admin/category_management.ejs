@@ -1,0 +1,157 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+    <%- include ('../layouts/admin/adminSidebar.ejs')%>
+        <%- include ('../layouts/admin/adminNav.ejs') %>
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <br><br>
+                    <div class="">
+                        <form action="addcategory" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="category" placeholder="Add Category"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                    <span>
+                        <%= message %>
+                    </span>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> </h4>
+
+
+                    <div class="card">
+                        <h5 class="card-header">Category List</h5>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table" id="category">
+                                <thead>
+
+                                </thead>
+                                <thead>
+                                    <th>SI NO</th>
+                                    <th>category</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <% if(category.length>0) { %>
+                                        <% for(i=0;i< category.length;i++) { %>
+                                            <tr>
+                                                <th>
+                                                    <%= i+1 %>
+                                                </th>
+                                                <td>
+                                                    <%= category[i].name %>
+                                                </td>
+                                                <!-- <td>
+                                                    <a class="btn btn-info"
+                                                        href="/admin/editCategory?id=<%= category[i]._id %> ">Edit</a>
+
+
+                                                    <button class="btn  btn-outline-danger" data-toggle="modal"
+                                                        data-target="#exampleModalCenter"
+                                                        onclick="del('<%= category[i]._id %>')">Delete</button>
+                                                    <a id="<%= category[i]._id %>"
+                                                        style="text-decoration: none; color: #ffff; display: none;"
+                                                        href="/admin/deleteCategory?id=<%= category[i]._id %>"></a>
+
+                                                </td> -->
+                                                <td>
+
+
+                                                    <div class="dropdown">
+                                                        <% if(category[i].isAvailable) { %>
+                                                            <button class="btn  btn-outline-danger" data-toggle="modal"
+                                                                style="width: 90px;" data-target="#exampleModalCenter"
+                                                                onclick="del('<%= category[i]._id %>')">Block</button>
+                                                            <a id="<%= category[i]._id %>"
+                                                                href="/admin/blockCatagory?id=<%= category[i]._id %> "></a>
+
+                                                            <% } else { %>
+                                                                <button class="btn  btn-outline-success"
+                                                                    data-toggle="modal" style="width: 90px;"
+                                                                    data-target="#exampleModalCenter"
+                                                                    onclick="del('<%= category[i]._id %>')">Unblock</button>
+                                                                <a id="<%= category[i]._id %>"
+                                                                    href="/admin/blockCatagory?id=<%= category[i]._id %> "></a>
+
+                                                                <% } %>
+
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+
+                                            <% }} else { %>
+
+                                                <!-- <tr>
+                                   
+                                </tr> -->
+
+                                                <tr>
+                                                    <td colspan="5">Category Not Found</td>
+                                                </tr>
+                                                <%}%>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+<!-- category delete button -->
+                    <!-- confirm box  -->
+                    <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete Category</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure want to delete Category ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                        onclick="save()">delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- /confirm -->
+
+
+
+
+<!-- category blocking -->
+
+                    <!-- confirm box  -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm Block</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure want to block ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">Block</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- /confirm -->
+                    <%- include ('../layouts/admin/adminFooter.ejs') %>

@@ -1,0 +1,51 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+<%- include ('../layouts/admin/adminSidebar.ejs') %>
+<%- include ('../layouts/admin/adminNav.ejs') %>
+
+<div class="container">
+<body>
+    <h1>Daily Report</h1>
+    <a href="/admin/salesReport" class="btn btn-info">Go Back</a>
+<table id="myTab" class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Product</th>
+        <th>image</th>
+        <!-- <th>date</th> -->
+        <th>Category</th>
+        
+        <th>Price</th>
+        <th>Quantity Sold</th>
+        <th>Total Sales</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% if(sales.length>0){ %>
+      <% for(let i = 0; i< sales.length; i++){ %>
+        <tr>
+          <td><%= sales[i].name%></td>
+          <td><img src="/admin/multer/img/<%=sales[i].image[0]  %>" width="100"></td>
+          <!-- <td><%= sales[i].createdAt%></td> -->
+          <td><%= sales[i].category%></td>
+          <td><%= sales[i].price%></td>
+          <td><%= sales[i].quantity%></td>
+          <td><%= sales[i].price * sales[i].quantity %></td>
+          
+        </tr>
+
+        <% } %>
+        <% }else{ %>
+          <p style="color: rgb(245, 13, 13);">No sales found in this date</p>
+          <% } %>
+      </tbody>
+       
+    <footer>
+      
+    </footer>
+  </table>
+</body>
+</div>
+
+
+
+<%- include ('../layouts/admin/adminFooter.ejs') %>

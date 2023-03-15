@@ -1,0 +1,87 @@
+
+<%- include ('../layouts/user/header.ejs') %>
+<div class="container">
+    <!-- <%
+    if(typeof message !== 'undefined'){
+      %> 
+      <p style="color: red;"> <%= message %></p>
+      <%
+    }
+    %> -->
+    <div class="vh-100 d-flex justify-content-center align-items-center ">
+      <div class="col-md-5 p-5 shadow-sm border rounded-5 border-primary bg-white">
+          <h2 class="text-center mb-4 text-primary">Forgot Password</h2>
+          <!-- <form method="post" action="/forgot">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Phone</label>
+                  <input type="text" name="phone" class="form-control border border-primary" aria-describedby="emailHelp">
+              </div>
+             
+              <div class="d-grid">
+                  <button class="btn btn-primary" type="submit">Send Otp</button>
+              </div>
+          </form> -->
+          <form action="/verifyForgotOtp" method="POST">
+            <div class="card py-5 px-3">
+
+                <h5 class="m-0">Mobile phone verification</h5><div class="mobile-text">Enter the code we just send on
+                    your
+                    mobile phone <b class="text-danger">
+                        <%= phone%>
+                    </b></div>
+                <span>
+                    <%= message%>
+                </span>
+                <div class="d-flex flex-row mt-5"><input type="text" id="otp" name="otp" class="form-control"
+                        autofocus="">
+                </div>
+
+                <span id="timer">1:00</span>
+                <a href="/forgot" id="resend-link" class="d-none">Resend OTP</a>
+
+
+                <div class="mb-4 d-flex justify-content-center  btn-lg">
+                    <button class=" btn login-btn m-auto px-5 py-1 rounded-pill fs-3 fw-bold" type="submit"
+                        name="submit" id="bId">Submit</button>
+                </div>
+
+                <!-- <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor">Resend</span></div> -->
+
+            </div>
+            <input type="hidden" name="phoneNumber" value="<%= phone %>">
+                  <input type="hidden" name="newOtp" value="<%= newOtp %>">
+        </form>
+         
+      </div>
+  </div>
+</div>
+
+<script>
+    // Set the countdown duration in seconds
+    const countdownDuration = 60;
+    
+    // Get the timer element
+    const timerElement = document.getElementById('timer');
+    const buttonElement = document.getElementById('bId');
+    
+    // Start the countdown timer
+    let countdown = countdownDuration;
+    const intervalId = setInterval(() => {
+      countdown--;
+      const minutes = Math.floor(countdown / 60);
+      const seconds = countdown % 60;
+      timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      if (countdown === 0) {
+        // Stop the countdown timer
+        clearInterval(intervalId);
+    
+        // Hide the timer element
+        timerElement.style.display = 'none';
+        buttonElement.style.display = 'none';
+    
+        // Show the "Resend OTP" link
+        const resendLinkElement = document.getElementById('resend-link');
+        resendLinkElement.classList.remove('d-none');
+      }
+    }, 1000);
+    </script>

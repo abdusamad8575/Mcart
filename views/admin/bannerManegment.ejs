@@ -1,0 +1,122 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+  <%- include ('../layouts/admin/adminSidebar.ejs') %>
+    <%- include ('../layouts/admin/adminNav.ejs') %>
+
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+      <br><br>
+      <div class="">
+        <% if(typeof message !=='undefined'){ %>
+        <p class="text text-danger"><%= message %></p>
+          <% } %>
+      </div>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> </h4>
+       
+<div class="container-xxl flex-grow-1 container-p-y " style="margin-top: -100px;">
+  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> </h4>
+  <form action="/admin/banner" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12 mb-4 d-flex  justify-content-around">
+            <div class="form-outline">
+                <input style="width: 30vw;" type="text" name="banner" id="form3Example1"
+                    class="form-control" placeholder="Banner name" />
+            </div>
+
+            <% if(typeof message !=='undefined' ){%>
+
+                <p class="mt-1 ps-2 text-danger">
+                    <%= message %>
+                </p>
+
+                <%}%>
+                    <div class="form-outline ">
+                        <input style="width: 30vw;" type="file" name="bannerImage"
+                            id="form3Example1" class="form-control" multiple />
+                    </div>
+
+                    <input style="width:7vw; " type="submit"
+                        class="btn btn-primary   form-control " value="Upload">
+        </div>
+    </div>
+
+</form>
+<div class="card mt-5">
+  <h5 class="card-header">Banner list</h5>
+  <div class="table-responsive text-nowrap">
+  <table class="table">
+  <thead>
+  
+  </thead>
+  <thead>
+      <th><span>Sl NO</span></th>
+      <th><span>Image</span></th>
+      <th><span>Name</span></th>
+      <th>Status</th>
+      <th><span>Actions</span></th>
+  </thead>
+  <tbody>
+    <%if(banner.length>0){
+      for(let i=0;i<banner.length;i++){%>
+        <tr>
+          <td>
+            <span><%=i+1 %></span>
+          </td>
+          <td>
+            <img src="/admin/multer/img/<%=banner[i].bannerImage[0] %>" alt="" width="100vw" height="100vh">
+            <img src="/admin/multer/img/<%=banner[i].bannerImage[1] %>" alt="" width="100vw" height="100vh">
+            <img src="/admin/multer/img/<%=banner[i].bannerImage[2] %>" alt="" width="100vw" height="100vh">
+          </td>
+          <td>
+            <%=banner[i].banner %>
+          </td>
+          <td>
+            <%if(banner[i].is_active==1){%>
+              <img src="/admin/multer/img/greenmark.jpg" alt="" style="width: 1.6vw;">
+              <% } else {%>
+
+                <% } %>
+          </td>
+          <td>
+            <a href="/admin/chooseBanner?id=<%=banner[i]._id %>" class="btn btn-primary">choose</a>
+
+            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter"
+            onclick="del('<%=banner[i]._id %>')">delete</button>
+          <a id="<%=banner[i]._id %>"
+            href="/admin/deleteBanner?id=<%=banner[i]._id %>"></a>
+            <!-- <a href="/admin/deleteBanner?id=<%=banner[i]._id %>" class="btn btn-danger">delete</a> -->
+          </td>
+        </tr>
+    <%}%>
+    <%}%>
+  </tbody>
+
+
+  <!-- confirm box  -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirm return</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /confirm -->
+
+  
+  <%- include ('../layouts/admin/adminFooter.ejs') %>

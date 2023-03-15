@@ -1,0 +1,57 @@
+
+<%- include ('../layouts/user/header.ejs') %>
+<div class="container">
+    <%
+    if(typeof message !== 'undefined'){
+      %> 
+      <p style="color: red;"> <%= message %></p>
+      <%
+    }
+    %>
+    <div class="vh-100 d-flex justify-content-center align-items-center ">
+      <div class="col-md-5 p-5 shadow-sm border rounded-5 border-primary bg-white">
+          <h2 class="text-center mb-4 text-primary">Forgot Password</h2>
+          <form method="post" action="/forgot"  onsubmit="return numberChaking()">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Phone</label>
+                  <!-- <input type="text" name="phone" class="form-control border border-primary" aria-describedby="emailHelp"> -->
+                  <div class="form-outline mb-4">
+                  
+                    <input
+                      type="text"
+                      id="number"
+                      name="phone"
+                      class="form-control form-control-lg"
+                      placeholder="Mobile No"
+                      onchange="numberChaking()"
+                    />
+                    <span id="Number"></span>
+                  </div>
+              </div>
+             
+              <div class="d-grid">
+                  <button class="btn btn-primary" type="submit"
+                  onclick="numberChaking()">Send Otp</button>
+              </div>
+          </form>
+         
+      </div>
+  </div>
+</div>
+
+<script>
+    function numberChaking(){
+    let number=document.getElementById("number").value;
+     if(/^[0-9]+$/.test(number)==false){
+      document.getElementById("Number").innerHTML="please enter a valid number";
+      return false
+     }
+    else if(number.length != 10){
+      document.getElementById("Number").innerHTML="please enter 10 digits";
+      return false
+       }else{
+        document.getElementById("Number").innerHTML="";
+          return true
+       }
+  }
+</script>

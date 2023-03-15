@@ -1,0 +1,461 @@
+<%- include ('../layouts/user/header.ejs') %>
+    <%- include ('../layouts/user/nav.ejs') %>
+
+        <head>
+            <link type="text/css" rel="stylesheet" href="css/styleDeshbord.css">
+            <link type="text/css" rel="stylesheet" href="css/wallet.css">
+            <link type="text/css" rel="stylesheet" href="css/skins/skin-demo-10.css">
+        </head>
+
+        <main class="main">
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+                            <aside class="col-md-4 col-lg-3">
+                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab"
+                                            href="#tab-dashboard" role="tab" aria-controls="tab-dashboard"
+                                            aria-selected="true">Dashboard</a>
+                                    </li> -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders"
+                                            role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address"
+                                            role="tab" aria-controls="tab-address" aria-selected="false">Add
+                                            Adresses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-mullAddress-link" data-toggle="tab"
+                                            href="#tab-mullAddress" role="tab" aria-controls="tab-mullAddress"
+                                            aria-selected="false">Show Adresses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account"
+                                            role="tab" aria-controls="tab-account" aria-selected="false">Account
+                                            Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-wallet-link" data-toggle="tab" href="#tab-wallet"
+                                            role="tab" aria-controls="tab-wallet" aria-selected="false">Wallet</a>
+                                    </li>
+
+                                    <!-- <div class="size-208 w-full-ssm">
+                                        <span class="stext-110 cl2">
+                                          <button><a href="/wallet">Wallet</a></button>
+                                        </span>
+                                      </div> -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout"></a>
+                                    </li>
+                                </ul>
+                            </aside><!-- End .col-lg-3 -->
+
+                            <div class="">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" id="tab-orders" role="tabpanel"
+                                        aria-labelledby="tab-orders-link">
+                                        <div role="tabpanel" class="tab-pane" id="tabs-1-2">
+                                            <div class="nk-gap"></div>
+
+                                            <section class="container">
+                                                <table id="myTable" class="table	">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>OrderId</th>
+                                                            <th scope="col"></th>
+                                                            <th>Time</th>
+                                                            <th>Payment</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                            <th>View Order</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <button onclick="nam()">lreuidfh</button>
+
+                                                    <% for(let i in userorders){ %>
+                                                        <% if(userorders){ %>
+
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= userorders[i]._id %>
+                                                                    </td>
+                                                                    <td>
+
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= userorders[i].createdAt.toDateString() %>
+                                                                            <input type="hidden" id="dt"
+                                                                                value="<%= userorders[i].createdAt %>">
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= userorders[i].payment %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= userorders[i].status %>
+                                                                    </td>
+                                                                    <%if(userorders[i].status==='Delivered' ){%>
+
+                                                                    
+
+                                                                        <td>
+                                                                            <% const currentDate=new Date(); 
+                                                                       const cutoffDate=new Date();
+                                                                       console.log("cutoffDate="+cutoffDate)
+                                                                       console.log("cutoffDate="+cutoffDate)
+                                                                       cutoffDate.setDate(currentDate.getDate() - 14);
+                                                                       const createdAtDate=new Date(userorders[i].createdAt); 
+                                                                       console.log("createdAtDate="+createdAtDate)
+                                                                       if (createdAtDate <=cutoffDate) { %>
+                                                                            <h6> <strike>return item</strike> </h6>
+                                                                            <%}else{%>
+                                                                            <div class="dropdown">
+                                                                                <button
+                                                                                    class="genric-btn primary-border"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#exampleModalCenter"
+                                                                                    onclick="del('<%= userorders[i]._id  %>')">Return
+                                                                                    Order</button>
+                                                                                <a id="<%= userorders[i]._id  %>"
+                                                                                    href="/returnOrder?id=<%= userorders[i]._id  %>"></a>
+
+                                                                                <!-- <a href="/returnOrder?id=<%= userorders[i]._id %>"
+                                                                                     class="genric-btn primary-border ">Return Order</a> -->
+
+                                                                            </div>
+                                                                            <%}%>
+                                                                        </td>
+                                                                        <%} else if(userorders[i].status==='return' ){%>
+                                                                            <td><span>order return</span></td>
+                                                                            <%}else{%>
+
+                                                                                <td>
+                                                                                    <button
+                                                                                        class="genric-btn primary-border"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#exampleModalCenter"
+                                                                                        onclick="del('<%= userorders[i]._id  %>')">Cancel
+                                                                                        Order</button>
+                                                                                    <a id="<%= userorders[i]._id  %>"
+                                                                                        href="/cancelOrder?id=<%= userorders[i]._id  %>"></a>
+                                                                                    <!-- <a href="/cancelOrder?id=<%= userorders[i]._id %>"
+                                                                        class="genric-btn primary-border ">Cancel
+                                                                        Order</a> -->
+                                                                                </td>
+                                                                                <%}%>
+
+                                                                                    <td><a href="/viewOrder?id=<%= userorders[i]._id %>"
+                                                                                            class="btn btn-outline-primary-2">View
+                                                                                            Details</a>
+                                                                                    </td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                            <% }else{ %>
+                                                                <p>No order has been made yet.</p>
+                                                                <% } %>
+                                                                    <% } %>
+
+                                                </table>
+                                            </section>
+
+
+                                            <div class="nk-gap"></div>
+                                        </div>
+
+
+                                        <p>No order has been made yet.</p>
+                                        <a href="/shop" class="btn btn-outline-primary-2">
+                                            <div>GO SHOP</div>
+                                        </a>
+
+
+                                    </div>
+
+
+
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel"
+                                        aria-labelledby="tab-address-link">
+                                        <form action="/addAddress" method="post">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <h2 class="checkout-title">New Address</h2>
+                                                    <!-- End .checkout-title -->
+
+
+                                                    <label>Name *</label>
+                                                    <input type="text" class="form-control" name="firstname" required>
+
+                                                    <label>Last Name *</label>
+                                                    <input type="text" class="form-control" name="lastname" required>
+
+                                                    <label>Country *</label>
+                                                    <input type="text" class="form-control" name="country" required>
+
+                                                    <label>Street address *</label>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="House number and Street name" name="address"
+                                                        required>
+
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>Town / City *</label>
+                                                            <input type="text" class="form-control" name="city"
+                                                                required>
+                                                        </div><!-- End .col-sm-6 -->
+
+                                                        <div class="col-sm-6">
+                                                            <label>State / County *</label>
+                                                            <input type="text" class="form-control" name="state"
+                                                                required>
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </div><!-- End .row -->
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>Postcode / ZIP *</label>
+                                                            <input type="text" class="form-control" name="zip" required>
+                                                        </div><!-- End .col-sm-6 -->
+
+                                                        <div class="col-sm-6">
+                                                            <label>Phone *</label>
+                                                            <input type="tel" class="form-control" name="phone"
+                                                                required>
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </div><!-- End .row -->
+
+                                                    <button type="submit" class="btn btn-outline-primary-2">
+                                                        <div>Update</div>
+                                                    </button>
+                                                </div><!-- End .col-lg-9 -->
+                                            </div><!-- End .row -->
+                                        </form>
+                                    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-mullAddress" role="tabpanel"
+                                        aria-labelledby="tab-mullAddress-link">
+
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+
+                                        <div class="row">
+                                            <%if(useraddress.length>0){
+                                                for(let key of useraddress){%>
+
+
+                                                <div class="col-lg-6">
+                                                    <div class="card card-dashboard">
+
+                                                        <div class="card-body">
+                                                            <h3 class="card-title">Address</h3>
+                                                            <p>
+                                                                <%= key.firstname %>
+                                                                    <%=key.lastname%><br>
+                                                                        <%= key.address %> <br>
+                                                                            <%= key.country %><br>
+                                                                                <%= key.state %><br>
+                                                                                    <%= key.city %> ,
+                                                                                        <%= key.zip %><br>
+                                                                                            <%= key.phone %><br>
+                                                                                                <!-- End .card-title -->
+
+
+                                                                                                <button
+                                                                                                    class="btn btn-outline-primary-2"><a
+                                                                                                        href="/deleteAddress?id=<%= key._id %>">
+                                                                                                        delete</a></button>
+                                                            </p>
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .card-dashboard -->
+                                                </div><!-- End .col-lg-6 -->
+                                                <%}}else{%>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="card card-dashboard">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title"> Address</h3>
+                                                                <!-- End .card-title -->
+
+                                                                <p>You have not set up this type of address yet.<br>
+                                                                </p>
+                                                            </div><!-- End .card-body -->
+                                                        </div><!-- End .card-dashboard -->
+                                                    </div><!-- End .col-lg-6 -->
+                                                    <%}%>
+
+                                        </div><!-- End .row -->
+                                    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-account" role="tabpanel"
+                                        aria-labelledby="tab-account-link">
+                                        <form action="changePassWord" method="post">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>First Name *</label>
+                                                    <input type="text" class="form-control" name="name"
+                                                        value="<%=user.name%>" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>phone *</label>
+                                                    <input type="text" class="form-control" name="number"
+                                                        value="<%=user.mobile%>" readonly required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <!-- <label>Display Name *</label>
+                                            <input type="text" class="form-control" required>
+                                            <small class="form-text">This will be how your name will be displayed in the
+                                                account section and in reviews</small> -->
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" name="email"
+                                                value="<%=user.email%>" required>
+
+                                            <label>Current password (leave blank to leave unchanged)</label>
+                                            <input type="password" name="password" class="form-control">
+
+                                            <label>New password</label>
+                                            <input type="password" name="password1" class="form-control" required>
+
+                                            <label>Confirm new password</label>
+                                            <input type="password" name="password2" class="form-control mb-2" required>
+
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <div>SAVE CHANGES</div>
+                                                <!-- <i class="icon-long-arrow-right"></i> -->
+                                            </button>
+                                        </form>
+                                    </div><!-- .End .tab-pane -->
+
+
+
+
+
+
+
+                                    <div class="tab-pane fade" id="tab-wallet" role="tabpanel"
+                                        aria-labelledby="tab-wallet-link">
+
+                                        <div class="wrapDiv">
+                                            <div class="container">
+                                                <div class="iphone">
+                                                    <div class="header">
+                                                        <div class="header-summary">
+                                                            <div class="summary-text">
+                                                                My Balance
+                                                            </div>
+                                                            <div class="summary-balance">
+                                                                &#8377; <%= user.wallet%>
+                                                            </div>
+                                                            <!-- <div class="summary-text-2">
+                                                                +&nbsp;280.00
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="user-profile">
+                                                            <img src="https://pbs.twimg.com/profile_images/1089189690773712897/bCJr7IzK_400x400.jpg"
+                                                                class="user-photo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="card">
+                                                            <div class="upper-row">
+                                                                <div class="card-item">
+                                                                    <span>Active Balance</span>
+                                                                    <span>
+                                                                        <%= user.wallet%> <span
+                                                                                class="dollar">&#8377;</span>
+                                                                </div>
+                                                                <!-- <div class="card-item">
+                                                                    <span>My Save it</span>
+                                                                    <span>2&nbsp;000 <span class="dollar">&#8377;</span>
+                                                                </div> -->
+                                                            </div>
+                                                            <div class="lower-row">
+                                                                <div class="icon-item">
+                                                                    <div class="icon"><i class="fas fa-upload"></i>
+                                                                    </div>
+                                                                    <div class="icon-text">Top-up</div>
+                                                                </div>
+                                                                <div class="icon-item">
+                                                                    <div class="icon"><i
+                                                                            class="fas fa-money-check-alt"></i></div>
+                                                                    <div class="icon-text">Withdraw</div>
+                                                                </div>
+                                                                <div class="icon-item">
+                                                                    <div class="icon"><i class="fal fa-paper-plane"></i>
+                                                                    </div>
+                                                                    <div class="icon-text">Send</div>
+                                                                </div>
+                                                                <div class="icon-item">
+                                                                    <div class="icon"><i class="fal fa-wallet"></i>
+                                                                    </div>
+                                                                    <div class="icon-text">Pay</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div><!-- .End .tab-pane -->
+
+
+
+
+                                </div>
+                            </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+
+
+
+        <!-- confirm box  -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm return</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /confirm -->
+
+        <script>
+            function nam() {
+                date = document.getElementById('dt').value
+                console.log(date + 14);
+                ret = Date.now()
+                nedt = ret - date
+                console.log(ret, nedt);
+            }
+        </script>
+
+
+        <%- include ('../layouts/user/footer.ejs') %>

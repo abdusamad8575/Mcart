@@ -1,0 +1,71 @@
+<% include ('../layouts/header.ejs') %>
+<head>
+      <style>
+         span{
+          color: red;
+          font-size: small;
+        }
+      </style>
+  </head>
+
+    <h1>Edit user</h1>
+
+    <form action="" method="post" onsubmit="return allChecking()">
+
+        <input type="name" name="name" placeholder="Enter Name" value="<%= user.name %>" id="name" onchange="nameChaking()">
+        <br><span id="Name"></span><br>
+        <input type="email" name="email" placeholder="Enter Email" value="<%= user.email %>" id="email" onchange="emailChaking()">
+        <br><span id="Email"></span><br>
+        <input type="mobile" name="mno" placeholder="Enter Mobile" value="<%= user.mobile %>" id="number" onchange="numberChaking()">
+        <br><span id="Number"></span><br>
+        <input type="hidden" name="id" value="<%= user._id %>">
+        <input type="submit" value="Update User" onclick="nameChaking() , emailChaking(), numberChaking()">
+    </form>
+    <a href="/admin">Go Dashboard</a>
+
+    <script>
+ function nameChaking(){
+    let name=document.getElementById("name").value;
+     if(name ==""){
+      document.getElementById("Name").innerHTML="please enter name";
+      return false
+       }else{
+        document.getElementById("Name").innerHTML="";
+          return true
+       }
+  }
+  function emailChaking(){
+    let emailId=document.getElementById("email").value;
+    console.log("emailId"+emailId);
+    if(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(emailId)==false){
+      document.getElementById("Email").innerHTML="Please enter valid email ";
+      return false;
+    }else{
+      document.getElementById("Email").innerHTML="";
+      return true;
+    }
+  }
+  function numberChaking(){
+    let number=document.getElementById("number").value;
+     if(/^[0-9]+$/.test(number)==false){
+      document.getElementById("Number").innerHTML="please enter a valid number";
+      return false
+     }
+    else if(number.length != 10){
+      document.getElementById("Number").innerHTML="please enter 10 digits";
+      return false
+       }else{
+        document.getElementById("Number").innerHTML="";
+          return true
+       }
+  }
+  function allChecking(){
+    if(nameChaking()&&emailChaking()&&numberChaking()){
+      return true
+    }else{
+      return false
+    }
+  }
+    </script>
+
+    <% include ('../layouts/footer.ejs') %>

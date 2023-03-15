@@ -1,0 +1,180 @@
+<%- include('../layouts/user/header.ejs') %>
+
+<section class="vh-100" style="background-color: #fff">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Sign up
+                </p>
+                <% if(typeof message !=='undefined' ) { %>
+                  <p style="color: green"><%= message %></p>
+                  <% } %>
+
+                <form action="/register" method="post" onsubmit="return allChecking()">
+                  <div class="form-outline mb-4">
+                   
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="form-control form-control-lg"
+                      placeholder="Name"
+                      onchange="nameChaking()"
+                    />
+                    <span id="Name"></span>
+                  </div>
+
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                 
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-control form-control-lg"
+                      placeholder="Email"
+                      onchange="emailChaking()"
+                    />
+                    <span id="Email"></span>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                  
+                    <input
+                      type="text"
+                      id="number"
+                      name="mno"
+                      class="form-control form-control-lg"
+                      placeholder="Mobile No"
+                      onchange="numberChaking()"
+                    />
+                    <span id="Number"></span>
+                  </div>
+
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                  
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      class="form-control form-control-lg"
+                      onchange="passwordChaking()"
+                    />
+                    <span id="Password"></span>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                  
+                    <input
+                      type="password"
+                      name="password2"
+                      id="password2"
+                      placeholder="conform-Password"
+                      class="form-control form-control-lg"
+                      onchange="passwordChaking2()"
+                    />
+                    <span id="Password2"></span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-around align-items-center mb-4"
+                  ></div>
+
+                  <!-- Submit button -->
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg btn-block"
+                    value="Register"
+                    onclick="nameChaking() , emailChaking(), numberChaking(), passwordChaking(), passwordChaking2()"
+                  > 
+                    Register
+                  </button>
+                  <a href="/user_signin">back to login</a>
+
+                  <div class="divider d-flex align-items-center my-4">
+                    <p class="text-center fw-bold mx-3 mb-0 text-muted"></p>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+    function nameChaking(){
+    let name=document.getElementById("name").value;
+     if(name ==""){
+      document.getElementById("Name").innerHTML="please enter name";
+      return false
+       }else{
+        document.getElementById("Name").innerHTML="";
+          return true
+       }
+  }
+  function emailChaking(){
+    let emailId=document.getElementById("email").value;
+    console.log("emailId"+emailId);
+    if(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(emailId)==false){
+      document.getElementById("Email").innerHTML="Please enter valid email ";
+      return false;
+    }else{
+      document.getElementById("Email").innerHTML="";
+      return true;
+    }
+  }
+  function numberChaking(){
+    let number=document.getElementById("number").value;
+     if(/^[0-9]+$/.test(number)==false){
+      document.getElementById("Number").innerHTML="please enter a valid number";
+      return false
+     }
+    else if(number.length != 10){
+      document.getElementById("Number").innerHTML="please enter 10 digits";
+      return false
+       }else{
+        document.getElementById("Number").innerHTML="";
+          return true
+       }
+  }
+  let password=document.getElementById("password").value; 
+  function passwordChaking(){
+    password=document.getElementById("password").value; 
+     if(password.length <8){
+      document.getElementById("Password").innerHTML="please enter minimum 8 digits";
+      return false
+       }else{
+        document.getElementById("Password").innerHTML="";
+          return true
+       }
+  }
+  function passwordChaking2(){
+    let password2=document.getElementById("password2").value;
+    console.log(password2)
+     if(password2 != password || password2==""){
+      document.getElementById("Password2").innerHTML="Password not match";
+      return false
+       }else{
+        document.getElementById("Password2").innerHTML="";
+        return true
+       }
+      }
+  function allChecking(){
+    if(nameChaking()&&emailChaking()&&numberChaking()&&passwordChaking()&&passwordChaking2()){
+      return true
+    }else{
+      return false
+    }
+  }
+
+</script>

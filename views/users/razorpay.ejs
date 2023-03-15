@@ -1,0 +1,111 @@
+<%- include ('../layouts/user/header.ejs') %>
+    <%- include ('../layouts/user/nav.ejs') %>
+
+    <head>
+      <title>Razorpay Payment Gateway Integration</title>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    </head>
+    <body>
+      <!-- <section style="height: 100vh;">
+      <h1>Order Details</h1>
+      <p>Order ID: <%= order_id%></p>
+      <p>Total Price: <%= total%></p>
+  
+      <button id="rzp-button">Pay with Razorpay</button> -->
+
+      <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+          <h4 class="mtext-109 cl2 p-b-30">
+            Order Details
+          </h4>
+
+          <div class="flex-w flex-t bor12 p-b-13">
+           
+          </div>
+
+          <div class="flex-w flex-t p-t-27 p-b-33">
+            <div class="size-208">
+              <span class="mtext-101 cl2">
+                Order ID:
+              </span>
+            </div>
+
+            <div class="size-209 p-t-1">
+              <span class="mtext-110 cl2 totalCart" id="totalId">
+                <%= order_id%>
+              </span>
+            </div>
+          </div>
+
+          <div class="flex-w flex-t p-t-27 p-b-33">
+            <div class="size-208">
+              <span class="mtext-101 cl2">
+                Total Price:
+              </span>
+            </div>
+
+            <div class="size-209 p-t-1">
+              <span class="mtext-110 cl2 totalCart" id="totalId">
+                <%= total%>
+              </span>
+            </div>
+          </div>
+          <a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+            href="" id="rzp-button">Pay with Razorpay</a>
+        </div>
+  </div>
+      <script>
+        var rzp = new Razorpay({
+          key: "<%= key_id%>",
+          amount: "<%= total %>"*100,
+          currency: "INR",
+          name: "Razorpay",
+          description: "Order <%= orderId%>",
+          image: "https://example.com/your_logo.jpg",
+      
+          handler: function(response) {
+            // Handle payment success
+            console.log(response);
+            //alert("Payment Successful!");
+            window.location.href = "/loadordersuccess";
+          },
+          prefill: {
+            name: "<%= user.name %>",
+            email: "<%= user.email %>"
+          },
+          notes: {
+            address: "<%= user.address %>"
+          }
+        });
+  
+        rzp.on('payment.failed', function (response){
+          // Handle payment failure
+          console.log(response.error.code);
+          console.log(response.error.description);
+          console.log(response.error.source);
+          console.log(response.error.step);
+          console.log(response.error.reason);
+          console.log(response.error.metadata);
+          //alert("Payment Failed! Please try again.");
+          window.location.href = "/paymentFailure";
+        });
+  
+        document.getElementById("rzp-button").onclick = function(e){
+          rzp.open();
+          e.preventDefault();
+        };
+      </script>
+      </section>
+    </body>
+
+
+
+
+
+   
+
+
+
+
+
+    <%- include ('../layouts/user/footer.ejs') %>

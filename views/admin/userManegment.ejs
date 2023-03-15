@@ -1,0 +1,165 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+<%- include ('../layouts/admin/adminSidebar.ejs') %>
+<%- include ('../layouts/admin/adminNav.ejs') %>
+
+
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+      <div class="col-md-8">
+        <h5 class="card-header m-0 me-2 pb-3">User Details</h5>
+      </div>
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3"><span class="text-muted fw-light"></span> </h4>
+
+
+        <div class="card">
+          <h5 class="card-header">User List</h5>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(users.length>0){ %>
+                  <% for(let i=0;i < users.length; i++){ %>
+
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                          <%= users[i].name %>
+                        </strong></td>
+                      <td>
+                        <%= users[i].email %>
+                      </td>
+                      <td>
+                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                          <li>
+
+                            <%= users[i].mobile %>
+
+
+                          </li>
+
+                        </ul>
+                      </td>
+                      <td><span class="badge bg-label-warning me-1" style="width: 80px;">
+                          <% if(users[i].is_status){ %>
+                            <label class="">
+                              <i class="m-r-10 mdi mdi-account-off text-success">Active</i></label>
+                            <% } else { %>
+                              <label class="">
+                                <i class="m-r-10 mdi mdi-account-off text-danger">Blocked</i></label>
+                              <% } %>
+                                </label>
+                        </span></td>
+                      <td>
+                        <div class="dropdown">
+                          <% if(users[i].is_status) { %>
+                            <button class="btn  btn-outline-danger" data-toggle="modal" style="width: 90px;"  data-target="#exampleModalCenter"
+                          onclick="del('<%= users[i]._id %>')">Block</button>
+                        <a id="<%= users[i]._id %>"
+                          href="/admin/blockuser?id=<%= users[i]._id %> "></a>
+                            <!-- <a class="btn btn-danger text-white" style="width: 90px;"
+                              href="/admin/blockuser?id=<%= users[i]._id %> ">Block</a> -->
+                            <% } else { %>
+                              <button class="btn  btn-outline-success" data-toggle="modal" style="width: 90px;" data-target="#exampleModalCenter"
+                          onclick="del('<%= users[i]._id %>')">Unblock</button>
+                        <a id="<%= users[i]._id %>"
+                          href="/admin/blockuser?id=<%= users[i]._id %> "></a>
+                              <!-- <a class="btn btn-success" style="width: 90px;"
+                                href="/admin/blockuser?id=<%= users[i]._id %> ">Unblock</a> -->
+                              <% } %>
+
+                        </div>
+                      </td>
+                      <td>
+
+                      </td>
+                    </tr>
+                    <% } } else{ %>
+
+                      <tr>
+                        <td colspan="5">Users Not Found</td>
+                      </tr>
+                      <% } %>
+
+
+              </tbody>
+              <tfoot class="table-border-bottom-0">
+                <tr>
+                  <!-- <th>Project</th>
+  <th>Email</th>
+  <th>Mobile</th>
+  <th>Status</th>
+  <th>Actions</th> -->
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+            <div class="mb-2 mb-md-0">
+
+
+
+            </div>
+            <div>
+
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- Content wrapper -->
+    </div>
+    <!-- / Layout page -->
+  </div>
+
+  <!-- Overlay -->
+  <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+  <!-- / Layout wrapper -->
+
+
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
+
+  
+          <!-- confirm box  -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Confirm Block</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to block ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">Block</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /confirm -->
+
+
+  <%- include ('../layouts/admin/adminFooter.ejs') %>

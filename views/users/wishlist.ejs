@@ -1,0 +1,115 @@
+<%- include ('../layouts/user/header.ejs') %>
+    <%- include ('../layouts/user/nav.ejs') %>
+
+
+        <!-- breadcrumb -->
+        <div class="container">
+            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+                <a href="home" class="stext-109 cl8 hov-cl1 trans-04">
+                    Home
+                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                </a>
+
+                <span class="stext-109 cl4">
+                    wishlist
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Shoping Cart -->
+
+        <div class="container">
+            <!-- <form class="bg0 p-t-75 p-b-85"> -->
+
+                <div class="row">
+
+
+
+                    <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                        <div class="m-l-25 m-r--54 m-lr-0-xl">
+                            <div class="wrap-table-shopping-cart">
+                                <table class="table-shopping-cart">
+                                    <tr class="table_head">
+                                        <th class="column-1">Product</th>
+                                        <th class="column-2"></th>
+                                        <th class="column-3">catagory</th>
+                                        <th class="column-4">price</th>
+                                        <th class="column-5">Action</th>
+
+
+                                    </tr>
+                                    <% if(wishlistproducts.item.length>0){ %>
+                                        <% for(let key of wishlistproducts.item) {%>
+                                            <tr class="table_row">
+
+                                                <td class="column-1">
+                                                    <a href="/deletewishlist?id=<%= key.productId._id %>">
+                                                        <div class="how-itemcart1">
+
+                                                            <img src="/admin/multer/img/<%=key.productId.image[0]%>"
+                                                                alt="IMG">
+
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td class="column-2">
+                                                    <%= key.productId.name %>
+                                                </td>
+                                                <td class="column-3">$ <%= key.productId.category %>
+                                                </td>
+                                                <td class="column-5">$ <%= key.productId.price %>
+                                                </td>
+                                                <td>
+                                                <div class="one-eight text-center">
+                                                    <div class="display-tc">
+                                                        <span class="price">
+                                                            <a href="/addcartdeletewishlist?id=<%= key.productId._id %>" class="btn btn-primary">Add To Cart</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                                <!-- <div class="one-eight text-center">
+                                                    <div class="display-tc">
+                                                        <a href="/deletewishlist?id=<%= key.productId._id %>" class="closed"></a>
+                                                    </div>
+                                                </div> -->
+
+                                            </tr>
+                                            
+                                            <%}} else {%>
+                                                <tr>
+                                                    <td>No Product</td>
+                                                </tr>
+                                                <%}%>
+
+
+                                </table>
+                            </div>
+
+                           
+
+                            <div class="nk-gap-1"></div>
+
+
+                            <!-- </form> -->
+                        </div>
+                    </div>
+
+
+</div>
+
+
+
+
+            </form>
+        </div>
+        <!-- </form> -->
+        <script>
+
+
+
+        </script>
+
+
+        <%- include ('../layouts/user/footer.ejs') %>

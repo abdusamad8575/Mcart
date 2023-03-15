@@ -1,0 +1,568 @@
+<%- include ('../layouts/user/header.ejs') %>
+    <%- include ('../layouts/user/nav.ejs') %>
+
+        <head>
+            <link type="text/css" rel="stylesheet" href="css/styleDeshbord.css">
+            <link type="text/css" rel="stylesheet" href="css/skins/skin-demo-10.css">
+        </head>
+
+        <section class="banner-area organic-breadcrumb">
+            <div class="container">
+                <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                    <div class="col-first">
+                        <h1>Checkout</h1>
+                        <div class="container">
+                            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+                                <a href="home" class="stext-109 cl8 hov-cl1 trans-04">
+                                    Home
+                                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                                </a>
+
+                                <span class="stext-109 cl4">
+                                    Checkout
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Banner Area -->
+
+        <!--================Checkout Area =================-->
+        <section class="checkout_area section_gap">
+            <div class="container" style="display: flex;">
+
+
+
+                <div class="col-12 col-md-6">
+                    <div class="checkout_details_area mt-50 clearfix">
+
+
+                        <div class="cart-page-heading">
+                            <h5>Billing Address</h5>
+                        </div>
+
+                        <form action="addOrderDetails" method="post">
+                            <div class="row">
+                                <% if(addselect !=null) {%>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="first_name">First Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="first_name" name="firstname"
+                                            value="<%= addselect.firstname %> " required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="last_name">Last Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="last_name" name="lastname"
+                                            value="<%= addselect.lastname %> " required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="country">Country <span>*</span></label>
+                                        <input type="text" class="form-control" id="country" name="country" min="0"
+                                            value="<%= addselect.country %> ">
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <label for="street_address">Address <span>*</span></label>
+                                        <input type="text" class="form-control mb-3" id="street_address" name="address"
+                                            value="<%= addselect.address %> ">
+                                        <!-- <input type="text" class="form-control" id="street_address2"
+                                            value="<%=addselect.address2 %> "> -->
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="city">Town/City <span>*</span></label>
+                                        <input type="text" class="form-control" id="city" name="city"
+                                            value="<%= addselect.city %>">
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <label for="state">State <span>*</span></label>
+                                        <input type="text" class="form-control" id="state" name="state"
+                                            value="<%= addselect.state %>">
+                                    </div>
+
+
+                                    <!-- <div class="col-12 mb-3">
+                                <label for="company">Company Name</label>
+                                <input type="text" class="form-control" id="company" value="    ">
+                            </div> -->
+
+                                    <div class="col-12 mb-3">
+                                        <label for="postcode">Postcode <span>*</span></label>
+                                        <input type="text" class="form-control" id="zip" name="zip"
+                                            value="<%= addselect.zip %>">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="phone_number">Phone No <span>*</span></label>
+                                        <input type="tel" class="form-control" id="phone" name="phone"
+                                            value="<%= addselect.phone %> ">
+                                    </div>
+                                    <!-- <div class="col-12 mb-3">
+                                <label for="city">Town/City <span>*</span></label>
+                                <input type="text" class="form-control" id="city" value="">
+                            </div> -->
+
+                                    <!-- <div class="col-12 mb-4">
+                                <label for="email_address">Email Address <span>*</span></label>
+                                <input type="email" class="form-control" id="email_address" value="">
+                            </div> -->
+                                    <div class="row">
+                                        <%if(useraddress.length>0){
+                                            for(let key of useraddress){%>
+                                            <a href="/getCheckout?address_id=<%=key._id%>">
+                                                <div class="col-md-18 form-group p_star">
+                                                    <a href="/getCheckout?address_id=<%=key._id%>">
+                                                        <div class="card card-dashboard">
+
+                                                            <a href="/getCheckout?address_id=<%=key._id%>">
+                                                                <div class="card-body">
+                                                                    <h3 class="card-title">Shipping
+                                                                        Address</h3>
+                                                                    <!-- End .card-title -->
+
+                                                                    <p>
+                                                                        <%= key.firstname %>
+                                                                            <%=key.lastname%><br>
+                                                                                <%= key.address %> , <%= key.address2 %>
+                                                                                        <br>
+                                                                                        <%= key.city %>
+                                                                                            , <%= key.state %><br>
+                                                                                                <%= key.country %>
+                                                                                                    <br>
+                                                                                                    <%= key.zip %>
+                                                                                                        <br>
+                                                                                                        <%= key.phone %>
+                                                                                                            <br>
+                                                                                                            <br>
+                                                                                                            <button
+                                                                                                                class="btn btn-outline-primary-2"><a
+                                                                                                                    href="/getCheckout?address_id=<%=key._id%>">
+                                                                                                                    Edit</a></button>
+                                                                                                            <button
+                                                                                                                class="btn btn-outline-primary-2"><a
+                                                                                                                    href="/deleteAddressInCheckout?id=<%= key._id %>">
+                                                                                                                    delete</a></button>
+                                                                    </p>
+                                                                    </p>
+                                                                </div>
+                                                            </a>
+                                                            <!-- End .card-body -->
+                                                        </div>
+                                                    </a>
+                                                    <!-- End .card-dashboard -->
+                                                </div>
+                                            </a>
+                                            <!-- End .col-lg-6 -->
+                                            <%}}else{%>
+
+                                                <div class="col-lg-6">
+                                                    <a href="">
+                                                        <div class="card card-dashboard">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title">Shipping Address
+                                                                </h3>
+
+                                                                <p>You have not set up this type of
+                                                                    address yet.<br>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <%}%>
+                                    </div>
+
+                                    <!-- <div class="col-12">
+                                        <div class="custom-control custom-checkbox d-block mb-2">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Terms and
+                                                conditions</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox d-block mb-2">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2">Create an
+                                                accout</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox d-block">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                            <label class="custom-control-label" for="customCheck3">Subscribe to our
+                                                newsletter</label>
+                                        </div>
+                                    </div> -->
+
+
+
+
+
+
+                                    <% }else{ %>
+                                       
+                                            <div class="col-md-6 mb-1">
+                                                <label for="first_name">First Name <span>*</span></label>
+                                                <input type="text" class="form-control" id="first_name" name="firstname"
+                                                    value=" " required>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                                <label for="last_name">Last Name <span>*</span></label>
+                                                <input type="text" class="form-control" id="last_name" name="lastname"
+                                                    value=" " required>
+                                            </div>
+                                            <div class="col-12 mb-1">
+                                                <label for="street_address">Address <span>*</span></label>
+                                                <input type="text" class="form-control mb-3" id="street_address"
+                                                    name="address" value=" ">
+                                                <!-- <input type="text" class="form-control" id="street_address2" value=""> -->
+                                            </div>
+
+                                            <div class="col-12 mb-1">
+                                                <label for="country">Country <span>*</span></label>
+                                                <input type="text" class="form-control" id="country" name="country"
+                                                    min="0" value=" ">
+                                            </div>
+
+                                            <div class="col-12 mb-1">
+                                                <label for="country">Stete <span>*</span></label>
+                                                <input type="text" class="form-control" id="stete" name="state" min="0"
+                                                    value=" ">
+                                            </div>
+
+                                            <div class="col-12 mb-3">
+                                                <label for="city">Town/City <span>*</span></label>
+                                                <input type="text" class="form-control" id="city" name="city" value="">
+                                            </div>
+
+
+                                            <div class="col-12 mb-3">
+                                                <label for="postcode">Postcode <span>*</span></label>
+                                                <input type="text" class="form-control" id="zip" name="zip" value="">
+                                            </div>
+                                            <div class="col-12 mb-1">
+                                                <label for="phone_number">Phone no <span>*</span></label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" value="">
+                                            </div>
+                                            <a href="userProfile" class="btn btn-outline-primary-2 m-l-9"
+                                                style="width: 20%;">
+                                                Add Address
+                                        </a>
+                                        
+
+                                        <div class="row mt-1">
+                                            <%if(useraddress.length>0){
+                                                for(let key of useraddress){%>
+                                                <a href="/getCheckout?address_id=<%=key._id%>">
+                                                    <div class="col-md-18 form-group p_star">
+                                                        <a href="/getCheckout?address_id=<%=key._id%>">
+                                                            <div class="card card-dashboard">
+
+                                                                <a href="/getCheckout?address_id=<%=key._id%>">
+                                                                    <div class="card-body">
+                                                                        <h3 class="card-title">Shipping
+                                                                            Address1</h3>
+                                                                        <!-- End .card-title -->
+
+                                                                        <p>
+                                                                            <%= key.firstname %>
+                                                                                <%=key.lastname%><br>
+                                                                                    <%= key.address %> ,
+                                                                                        <%= key.address2 %>
+                                                                                            <br>
+                                                                                            <%= key.country %>
+                                                                                                <%= key.state%>
+                                                                                                    <br>
+                                                                                                    <%= key.city %>,
+                                                                                                        <br>
+                                                                                                        <%= key.zip %>
+                                                                                                            <br>
+                                                                                                            <%=key.phone
+                                                                                                                %>
+                                                                                                                <br>
+                                                                                                                <br>
+                                                                                                                <button
+                                                                                                                    class="btn btn-outline-primary-2"><a
+                                                                                                                        href="getCheckout?address_id=<%=key._id%>">
+                                                                                                                        Edit</a></button>
+                                                                                                                <button
+                                                                                                                    class="btn btn-outline-primary-2"><a
+                                                                                                                        href="deleteAddressInCheckout?id=<%= key._id %>">
+                                                                                                                        delete</a></button>
+
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                                <!-- End .card-body -->
+                                                            </div>
+                                                        </a>
+                                                        <!-- End .card-dashboard -->
+                                                    </div>
+                                                </a>
+                                                <!-- End .col-lg-6 -->
+                                                <%}}else{%>
+
+                                                    <div class="col-lg-6">
+                                                        <a href="">
+                                                            <div class="card card-dashboard">
+                                                                <div class="card-body">
+                                                                    <h3 class="card-title">Shipping Address
+                                                                    </h3>
+
+                                                                    <p>You have not set up this type of
+                                                                        address yet.<br>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <%}%>
+                                        </div>
+
+                                        <% } %>
+
+                            </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                    
+
+
+                <div class="col-lg-4">
+                    <div class="flex-w flex-t p-t-27 p-b-33" style="border: solid 1px grey; justify-content: center;">
+                        <div class="flex-w flex-m m-r-20 m-tb-5" style="    justify-content: center;">
+                            <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                                name="coupon" placeholder="Coupon Code" id="coupon-input">
+
+                            <div
+                                class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5" id="coupon-btn">
+                                Apply coupon
+                            </div>
+                        </div>
+                        <span id="massegeSpan"></span>
+                    </div>
+
+
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li><a href="#">Product <span class="mtext-11 cl2">Total</span></a></li>
+
+
+
+
+                            <% for(let key of cartproducts.item){ %>
+
+
+                                <li><a href="#">
+                                        <%= key.productId.name %> <span class="middle"> x <%= key.qty %></span> <span
+                                                class="last"> ₹ <%= key.productId.price*key.qty %></span>
+                                    </a></li>
+                                <%}%>
+                                    <li><span class="mtext-11 cl2">Total:₹</span> <span class="mtext-11 cl2" id="totalId"><%= cartproducts.totalPrice %> </span></li>
+                        </ul>
+
+
+
+                      
+                        <table>
+                            <tr class="">
+                                <td>
+                                    Coupon applied
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr class="summary-total"> 
+                                <td>
+                                    Discount
+                                </td>
+                                <td>
+                                    <span class="mtext-11 cl2 discoundClass">0</span><span class="mtext-11 cl2">%</span>
+                                </td>
+                            </tr>
+                            <tr class="summary-total">
+                                <td>Total:</td>
+                                <td>
+                                    <div>
+                                        ₹
+                                        <%= cartproducts.totalPrice %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="summary-total">
+                                <td>Discount Amount:</td>
+                                <td>
+                                    <div>
+                                        <span class="cl2">₹</span> 
+                                        <span class="cl2 discountAmount">0</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="summary-total">
+                                <td>Sub Total:</td>
+                                <td>
+                                    <div>
+                                        <span class="cl2">₹</span> 
+                                        <span class="cl2 totalCart" id="last"><%= cartproducts.totalPrice %></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="checkbox" class="f-option4" id="f-option4"  onchange="val('<%= walletAmount%>')" name="payment" value="Wallet">
+                                <label for="f-option4">Wallet</label>
+                                <span class="cl2" style="display: none;">Wallet Amount:<%= walletAmount%></span>
+                                <input type="hidden" id="walamount" name="walamount" value="<%= walletAmount%>">
+                                <input type="hidden" name="cost" id="payable" value="">
+
+                                <div class="check"></div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option5" name="payment" value="cod">
+                                <label for="f-option5">Cash On Delivery</label>
+                                <div class="check"></div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="payment_item active">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option6" name="payment" value="Razorpay">
+                                <label for="f-option6">Razorpay </label>
+                                <img src="img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                        </div> -->
+
+
+
+
+
+                        <div class=" p-30">
+                            <div class="custom-control custom-radio">
+                                <input type="checkbox" class="custom-control-input" onchange="val('<%= walletAmount%>')" name="payment" id="wallet" value="wallet">
+                                <label class="custom-control-label" for="wallet">Wallet</label>
+                                <span class="cl2" id="walAmount" style="display: none;">Wallet Amount:<%= walletAmount%></span>
+                                <input type="hidden" id="walamount" name="walamount" value="<%= walletAmount%>">
+                                <input type="hidden" name="cost" id="payable" value="">
+
+                            </div> 
+
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input " name="payment" id="COD" value="cod">
+                                    <label class="custom-control-label " for="COD">Cash On Delivery</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input " name="payment" id="Online" value="Razorpay">
+                                    <label class="custom-control-label " for="Online">Online payment</label>
+                                </div>  
+                            </div>
+                        </div>
+
+                        <!-- <div class="creat_account">
+                            <input type="checkbox" id="f-option4" name="selector">
+                            <label for="f-option4">I’ve read and accept the </label>
+                            <a href="#">terms & conditions*</a>
+                        </div> -->
+                        <button type="submit"
+                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer m-t-50">Place
+                            Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+        </section>
+        <!--================End Checkout Area =================-->
+
+        <script>
+            //coupon 
+			$('#coupon-btn').click(function (e) {
+                console.log("sdfd");
+				e.preventDefault(); // prevent the default form submission behavior
+				const coupon = $('#coupon-input').val();
+				const total = document.getElementById('totalId').innerHTML;
+				// const hi = parseInt(total);
+				console.log(typeof(total));
+
+				$.ajax({
+					url: '/addCouponValue',
+					type: 'POST',
+					data: { coupon,total },
+					success: function (data) {
+						// update subtotal and grand total
+						console.log(data);
+						$('.totalCart').text(data.updatedlastTotal);
+                        $('.discoundClass').text(data.discount);
+                        $('.discountAmount').text(data.discountAmount);
+                        $('#massegeSpan').text(data.massege);
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown);
+					}
+				});
+			});
+        </script>
+
+<script>
+    function val(p){
+        wallet =parseInt(p)
+        // console.log("wallet"+waldata);
+        const lastAmount=document.getElementById("last").innerHTML;
+        total =parseInt(lastAmount);
+        if(document.getElementById('wallet').checked){
+            document.getElementById("walAmount").style ="display: block;"
+            if(wallet>=total){
+                // console.log(wallet,waldata);
+             document.getElementById('COD').setAttribute("disabled","")
+             document.getElementById('COD').checked=false;
+            //  document.getElementById("payable").value=0;
+
+             document.getElementById('Online').setAttribute("disabled","")
+             document.getElementById('Online').checked=false;
+
+            //  else if()
+
+
+            }else{
+                
+                balance=total-wallet;
+                document.getElementById("COD").checked=false;
+                document.getElementById('COD').setAttribute("disabled","")
+
+                document.getElementById('Online').checked=true;
+
+                document.getElementById("payable").value=balance;
+                console.log(document.getElementById("payable").value);
+            }
+
+            
+        }else{
+            document.getElementById("payable").value="";
+                console.log(document.getElementById("payable").value);
+            document.getElementById("walAmount").style ="display: none;"
+            document.getElementById('COD').removeAttribute("disabled","")
+             document.getElementById('Online').removeAttribute("disabled","") 
+        }
+    }
+    
+
+</script>
+
+        <%- include ('../layouts/user/footer.ejs') %>

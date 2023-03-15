@@ -1,0 +1,181 @@
+<%- include ('../layouts/admin/adminHeader.ejs') %>
+  <%- include ('../layouts/admin/adminSidebar.ejs')%>
+    <%- include ('../layouts/admin/adminNav.ejs') %>
+
+      <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+
+          <div class="col-lg-4 col-md-6">
+
+            <div class="mt-3">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                Add Coupon
+              </button>
+
+              <!-- Modal -->
+              <form action="/admin/offerStore" method="post">
+                <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Add</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Enter Offer Nmae</label>
+                            <input type="text" name="name" id="nameWithTitle" class="form-control" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="row g-2">
+                          <!-- <div class="col mb-0">
+                            <label for="emailWithTitle" class="form-label">Enter Type</label>
+                            <input type="text" name="type" id="emailWithTitle" class="form-control" placeholder="" />
+                          </div> -->
+                          <div class="col mb-0">
+                            <label for="dobWithTitle" class="form-label">Enter Discount</label>
+                            <input type="text" name="discount" id="dobWithTitle" class="form-control" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col mb-3">
+                            <label class="form-label" for="form3Example3c">Enter Minimum Value</label>
+                            <input type="number" id="form3Example3c" class="form-control" name="min_value" required />
+                          </div>
+                        </div>
+                        <!-- <div class="row">
+                          <div class="col mb-3">
+                            <label class="form-label" for="form3Example3c">Enter Maximum Discount</label>
+                            <input type="number" id="form3Example3c" class="form-control" name="max_discount"
+                               />
+                          </div>
+                        </div> -->
+                        <div class="row">
+                          <div class="col mb-3">
+                            <label class="form-label" for="form3Example3c">Enter Expiry Date</label>
+                            <input type="date" id="form3Example3c" class="form-control" name="expire"
+                              required />
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+            </div>
+            </form>
+          </div>
+          <br>
+        
+
+
+
+
+        <div class="card">
+          <h5 class="card-header">Offer list</h5>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+
+              </thead>
+              <thead>
+                <th>SI NO</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Discount</th>
+                <th>min value</th>
+                <!-- <th>max discount</th> -->
+                <th>expirydate</th>
+
+
+                <th>Action</th>
+              </thead>
+              <tbody>
+                <% if(offer.length> 0){ %>
+                  <% for(let i=1;i <=offer.length; i++){ %>
+
+
+                    <tr>
+                      <th>
+                        <%= i %>
+                      </th>
+                      <td>
+
+                        <%= offer[i-1].name %>
+                      </td>
+                      <td>
+                        <%= offer[i-1].type %>
+                      </td>
+                      <td>
+                        <%= offer[i-1].discount %>%
+                      </td>
+                      <td>
+                        <%= offer[i-1].min_value %>
+                      </td>
+                      <!-- <td>
+                        <%= offer[i-1].max_discount %>
+                      </td> -->
+                      <td>
+                        <%= offer[i-1].expirydate%>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter"
+                        onclick="del('<%= offer[i-1]._id %>')">Delete</button>
+                      <a id="<%= offer[i-1]._id %>"
+                        href="/admin/deleteOffer?id=<%= offer[i-1]._id %>"></a>
+                        <!-- <a class="text-danger" href="/admin/deleteOffer?id=<%= offer[i-1]._id %>"><i
+                            style="color: #ff0000;" class="m-r-5 mdi mdi-border-color"></i>Delete</a><br> -->
+                      </td>
+
+
+
+                    </tr>
+
+                    <% } } else{ %>
+                      <tr>
+                        <td colspan="5">No Offers Added</td>
+                      </tr>
+                      <% } %>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+          <!-- confirm box  -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm return</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- /confirm -->
+
+        <%- include ('../layouts/admin/adminFooter.ejs') %>
