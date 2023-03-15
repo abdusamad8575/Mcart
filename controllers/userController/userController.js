@@ -99,7 +99,10 @@ const homePageRead = async (req, res) => {
             skip=page*12
         }
         Category = req.query.category;
-        const userDatas = await User.findOne({ _id: req.session.user_id })
+        let userDatas
+        if(req.session.user_id){
+            userDatas = await User.findOne({ _id: req.session.user_id })
+        }
         const products = await Product.find({isAvailable:1}).skip(skip).limit(limit);
         const categoryFind = await Product.find({ category: Category })
         const banners = await Banner.find({is_active:1});
