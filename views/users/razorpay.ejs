@@ -1,19 +1,12 @@
 <%- include ('../layouts/user/header.ejs') %>
   <%- include ('../layouts/user/nav.ejs') %>
 
-    <head>
+    <!-- <head>
       <title>Razorpay Payment Gateway Integration</title>
       <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     </head>
 
     <body>
-      <!-- <section style="height: 100vh;">
-      <h1>Order Details</h1>
-      <p>Order ID: <%= order_id%></p>
-      <p>Total Price: <%= total%></p>
-  
-      <button id="rzp-button">Pay with Razorpay</button> -->
-
       <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
         <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
           <h4 class="mtext-109 cl2 p-b-30">
@@ -97,8 +90,138 @@
         };
       </script>
       </section>
-    </body>
+    </body> -->
 
+
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+    .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 290px;
+  padding: 20px 1px;
+  margin: 10px 0;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  opacity: 0.5;
+  box-shadow: 0 10px 15px -3px rgba(33,150,243,.4),0 4px 6px -4px rgba(33,150,243,.4);
+  border-radius: 10px;
+  background-color: #6B6ECC;
+  background: linear-gradient(45deg, #04051dea 0%, #2b566e 100%);
+}
+
+.content {
+  padding: 20px;
+}
+
+.content .price {
+  color: white;
+  font-weight: 800;
+  font-size: 50px;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.42);
+}
+
+.content .description {
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.content .title {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.64);
+  margin-top: 10px;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+
+button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: none;
+  outline: none;
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgb(33 150 243);
+  border-radius: 0.5rem;
+  width: 90%;
+  text-shadow: 0px 4px 18px #2c3442;
+}
+
+
+</style>
+
+  <section style="height: 100vh;" >
+    <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="content">
+                <form method="POST" action="/checkout/razorpay">
+              
+              <div class="price"><%= total %></div>
+              <input type="hidden" name="userId" value="<%= userId %>">
+            <input type="hidden" name="total" value="<%= total %>">
+            <input type="hidden" name="order_id" value="<%= orderId %>">
+            <input type="hidden" name="key_id" value="<%= key_id %>">
+            <input type="hidden" name="order" value="<%= JSON.stringify(order) %>">
+            <input type="hidden" name="user" value="<%= JSON.stringify(user) %>">
+                    <input type="hidden" name="payment_id" id="payment_id_input">
+            </form>
+            </div>
+              <button id="razorpay-button">
+                Pay now
+              </button>
+        </div>
+    </div>
+   
+
+</section>
+    <script>
+        var options = {
+            "key": "<%= key_id %>",
+            "amount": "<%= total %>00",
+            "currency": "INR",
+            "name": "Oxiworld",
+            "description": "Payment for your order",
+            "image": "/logo.png",
+            "order_id": "<%= order_id %>",
+            "handler": function (response){
+                // Handle successful payment
+                console.log(response);
+                var paymentId = response.razorpay_payment_id;
+                document.getElementById("payment_id_input").value = response.razorpay_payment_id;
+                document.getElementById("razorpay-button").disabled = true;
+                document.getElementById("razorpay-button").innerHTML = "Processing Payment...";
+                document.forms[0].submit();
+            },
+            "prefill": {
+                "name": "<%= user.name %>",
+                "email": "<%= user.email %>",
+                "contact": "<%= user.phone %>"
+            },
+            "notes": {
+                "address": "<%= user.address %>"
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+        var rzp = new Razorpay(options);
+        document.getElementById('razorpay-button').onclick = function(e){
+            rzp.open();
+            e.preventDefault();
+        }
+    </script>
 
 
 
