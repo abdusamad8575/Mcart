@@ -33,7 +33,7 @@ const { application } = require("express");
 app.use("/admin", adminRoute);
 
 app.get("*",(req,res)=>{
-  res.status(404).render("404");
+  res.status(404).drender("404");
 })
 
 app.listen(7000, function () {
