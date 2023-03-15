@@ -1,26 +1,27 @@
 <%- include ('../layouts/user/header.ejs') %>
-    <%- include ('../layouts/user/nav.ejs') %>
+  <%- include ('../layouts/user/nav.ejs') %>
 
     <head>
       <title>Razorpay Payment Gateway Integration</title>
       <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     </head>
+
     <body>
-      <!-- <section style="height: 100vh;">
+      <section style="height: 100vh;">
       <h1>Order Details</h1>
       <p>Order ID: <%= order_id%></p>
       <p>Total Price: <%= total%></p>
   
-      <button id="rzp-button">Pay with Razorpay</button> -->
+      <button id="rzp-button">Pay with Razorpay</button>
 
-      <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+      <!-- <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
         <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
           <h4 class="mtext-109 cl2 p-b-30">
             Order Details
           </h4>
 
           <div class="flex-w flex-t bor12 p-b-13">
-           
+
           </div>
 
           <div class="flex-w flex-t p-t-27 p-b-33">
@@ -50,20 +51,20 @@
               </span>
             </div>
           </div>
-          <a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
-            href="" id="rzp-button">Pay with Razorpay</a>
+          <a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" href=""
+            id="rzp-button">Pay with Razorpay</a>
         </div>
-  </div>
+      </div> -->
       <script>
         var rzp = new Razorpay({
           key: "<%= key_id%>",
-          amount: "<%= total %>"*100,
+          amount: "<%= total %>" * 100,
           currency: "INR",
           name: "Razorpay",
           description: "Order <%= orderId%>",
           image: "https://example.com/your_logo.jpg",
-      
-          handler: function(response) {
+
+          handler: function (response) {
             // Handle payment success
             console.log(response);
             //alert("Payment Successful!");
@@ -77,8 +78,8 @@
             address: "<%= user.address %>"
           }
         });
-  
-        rzp.on('payment.failed', function (response){
+
+        rzp.on('payment.failed', function (response) {
           // Handle payment failure
           console.log(response.error.code);
           console.log(response.error.description);
@@ -89,8 +90,8 @@
           //alert("Payment Failed! Please try again.");
           window.location.href = "/paymentFailure";
         });
-  
-        document.getElementById("rzp-button").onclick = function(e){
+
+        document.getElementById("rzp-button").onclick = function (e) {
           rzp.open();
           e.preventDefault();
         };
@@ -102,7 +103,7 @@
 
 
 
-   
+
 
 
 
