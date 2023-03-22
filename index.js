@@ -23,18 +23,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
 // user_route.use(express.static('public'))
 
-//for user routes
-const userRoute = require("./routes/userRoute");
-app.use("/", userRoute);
-
 // for admin routes
 const adminRoute = require("./routes/adminRoute");
 const { application } = require("express");
 app.use("/admin", adminRoute);
 
-app.get("*",(req,res)=>{
-  res.status(404).render("404");
-})
+//for user routes
+const userRoute = require("./routes/userRoute");
+app.use("/", userRoute);
+
+
+// app.get("*",(req,res)=>{
+//   res.status(404).render("404");
+// })
 
 app.listen(7000, function () {
   console.log("server is running at 7000");

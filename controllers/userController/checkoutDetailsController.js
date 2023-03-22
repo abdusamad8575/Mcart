@@ -133,11 +133,10 @@ const addOrderDetails = async (req, res) => {
                 }
                 else if (payment == "Razorpay") {
                     var instance = new RazorPay({
-                        // key_id: process.env.KEY_ID,
-                        // key_secret: process.env.KEY_SECRET
-                        key_id: "rzp_test_m2QMJlI1oi6E6F",
-                        key_secret:"UqQbA4vzZOYIuHu5Bus3zr7i"
+                        key_id: process.env.KEY_ID,
+                        key_secret: process.env.KEY_SECRET
                     })
+                    console.log("ethan id="+order);
                     let razorpayOrder = await instance.orders.create({
                         amount: totalPrice * 100,
                         currency: 'INR',

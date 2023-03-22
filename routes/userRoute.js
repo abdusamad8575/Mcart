@@ -17,6 +17,7 @@ const auth = require("../middleware/auth");
 // const adminAuth = require('../middleware/adminAuth')
 
 user_route.set("views", "./views/users");
+// user_route.set("views", "./views");
 
 user_route.use(block)
 
@@ -28,7 +29,7 @@ const userController = require("../controllers/userController/userController");
 user_route.get("/", auth.isLogout, userController.homePageRead);
 user_route.get("/home",  userController.homePageRead);
 
-user_route.get("/register", auth.isLogout, userController.loadRegister);
+// user_route.get("/register", auth.isLogout, userController.loadRegister);
 user_route.post("/register", userController.insertUser,userController.loadOtp);
 
 user_route.get("/otp", auth.isLogout, userController.loadOtp);
@@ -126,6 +127,13 @@ user_route.get("/paymentFailure",auth.isLogin,checkoutDetailsController.paymentF
 user_route.post("/addOrderDetails",auth.isLogin,checkoutDetailsController.addOrderDetails)
 
 user_route.post("/addCouponValue",auth.isLogin,checkoutDetailsController.addCouponValue)
+
+
+// user_route.all("*", (req,res) => {
+//   res.render("404")
+// })
+
+user_route.all("*", userController.errorPage)
 
 
 module.exports = user_route;

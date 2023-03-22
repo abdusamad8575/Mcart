@@ -283,6 +283,15 @@ const userLogout = async (req, res) => {
 
 }
 
+const errorPage = (req,res) => {
+    try {
+            // res.status(404).json("error");
+            res.render("error")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 module.exports = {
     verifyOtp,
@@ -298,5 +307,7 @@ module.exports = {
     forgotVerifyNumber,
     verifyForgotOtp,
     verifyForgotPassword,
-    // paginetion
+    // paginetion,
+    errorPage
 }
+

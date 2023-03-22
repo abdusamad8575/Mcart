@@ -42,12 +42,16 @@ const productsLoad = async (req, res) => {
     }
 };
 
-const productsDetailsLoad = async (req, res) => {
+const productsDetailsLoad = async (req, res ,next) => {
     try {
         const id = req.query.id;
+        try{
         const productDitails = await Product.findOne({ _id: id })
         const userDatas = await User.findOne({ _id: req.session.user_id });
         res.render('product_details', { user: userDatas, product: productDitails });
+        }catch(error){
+            next(error)
+        }
     }
     catch (error) {
         console.log(error.message);
