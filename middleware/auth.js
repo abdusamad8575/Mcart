@@ -3,9 +3,9 @@ const isLogin = async (req, res, next) => {
     if (req.session.user1) {
       next();
     } else {
-      res.redirect("/user_signin");
+      res.redirect("/user_signin");   
     }
-  } catch (error) {
+  } catch (error) {  
     console.log(error.message);
   }
 };
