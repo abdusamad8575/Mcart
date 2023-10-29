@@ -29,7 +29,7 @@ const userController = require("../controllers/userController/userController");
 user_route.get("/", auth.isLogout, userController.homePageRead);
 user_route.get("/home",  userController.homePageRead);
 
-// user_route.get("/register", auth.isLogout, userController.loadRegister);
+user_route.get("/register", auth.isLogout, userController.loadRegister);
 user_route.post("/register", userController.insertUser,userController.loadOtp);
 
 user_route.get("/otp", auth.isLogout, userController.loadOtp);
